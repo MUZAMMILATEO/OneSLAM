@@ -1,0 +1,55 @@
+git clone https://github.com/arcadelab/OneSLAM.git
+cd ./OneSLAM
+
+# The installation process was tested on Ubuntu 20.04.6 LTS with CUDA 11.8.
+
+# First, check if nvcc is present:
+ls /usr/local/cuda-11.8/bin/nvcc
+
+# If nvcc file exists, just add it to your PATH:
+echo 'export PATH=/usr/local/cuda-11.8/bin:$PATH' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
+source ~/.bashrc
+
+# Then try again:
+nvcc --version
+
+# Install CMake (recommended via apt, not snap for build tools)
+sudo apt update
+sudo apt install cmake
+cmake --version
+
+# Install dependencies (if not already installed)
+# The following will install:
+# - Qt5 core libraries and CMake config
+# - Eigen 3 headers
+# - QGLViewer (for 3D visualization)
+# - Boost and Sparse libraries (often required by g2o)
+
+sudo apt install -y \
+    qt5-default \
+    libeigen3-dev \
+    libqglviewer-dev-qt5 \
+    libboost-all-dev \
+    libglew-dev \
+    libsuitesparse-dev
+
+# Install SuiteSparse and headers
+sudo apt-get install libsuitesparse-dev
+# This will install:
+# - libcholmod
+# - libcxsparse
+# - libcsparse
+# - headers in /usr/include/suitesparse/
+
+# Explicitly tell CMake where SuiteSparse is [Optional]
+cmake .. -DCMAKE_BUILD_TYPE=Release \
+  -DCSPARSE_INCLUDE_DIR=/usr/include/suitesparse \
+  -DCSPARSE_LIBRARY=/usr/lib/x86_64-linux-gnu/libcxsparse.so
+
+# Then run the following to initialize the necessary submodules and download the CoTracker model weights used by the pipeline.
+./init_submodules.sh
+./get_tap_model.sh
+
+# Finally, run to install the OneSLAM conda environment and g2opy.
+source ./install.sh
