@@ -13,6 +13,65 @@ git clone https://github.com/arcadelab/OneSLAM.git
 cd ./OneSLAM
 ```
 
+> [📌] **Important:**
+> 
+> The installation process was tested on **WSL Ubuntu 20.04.6 LTS** with **CUDA 11.8**.
+> 
+> First, check if nvcc is present:
+> ```bash
+> ls /usr/local/cuda-11.8/bin/nvcc
+> ```
+> Check if nvcc file exists, if required, just add it to your PATH using the following
+> ```bash
+> echo 'export PATH=/usr/local/cuda-11.8/bin:$PATH' >> ~/.bashrc
+> echo 'export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
+> source ~/.bashrc
+> ```
+> Then try again:
+>```bash
+> nvcc --version
+>```
+> Make sure CMake is installed, and if not installed, use the following commands to install it (recommended via apt, not snap for build tools)
+> ```bash
+> sudo apt update
+> sudo apt install cmake
+> cmake --version
+> ```
+> Install the following dependencies
+> ```bash
+> - Qt5 core libraries and CMake config
+> - Eigen 3 headers
+> - QGLViewer (for 3D visualization)
+> - Boost and Sparse libraries (often required by g2o)
+> ```
+> with the following commands
+> ```bash
+> sudo apt install -y \
+>   qt5-default \
+>   libeigen3-dev \
+>   libqglviewer-dev-qt5 \
+>   libboost-all-dev \
+>   libglew-dev \
+>   libsuitesparse-dev
+> ```
+> Install SuiteSparse and headers using the following
+> ```bash
+> sudo apt-get install libsuitesparse-dev
+> ```
+> This will install:
+> - libcholmod
+> - libcxsparse
+> - libcsparse
+> - headers in /usr/include/suitesparse/
+>
+>  Explicitly tell CMake where SuiteSparse is
+> ```bash
+> cmake .. -DCMAKE_BUILD_TYPE=Release \
+> -DCSPARSE_INCLUDE_DIR=/usr/include/suitesparse \
+> -DCSPARSE_LIBRARY=/usr/lib/x86_64-linux-gnu/libcxsparse.so
+>```
+
+
 run 
 
 ```
