@@ -1,0 +1,6 @@
+# To compare compute the quantitative results in the same fashion
+# as in HVSLAM
+# convert the predicted camera pose file ./experiments/<EXPERIMENT FOLDER>/poses_pred.txt
+# into HVSLAM compatible ./experiments/<EXPERIMENT FOLDER>/trajectory.txt file as follows
+
+python /home/khanm2004/workfolder/OneSLAM/extra_tools/trajectoryTXTconverter.py --input /home/khanm2004/workfolder/OneSLAM/experiments/exp_05182025_16:05:47/poses_pred.txt --output /home/khanm2004/workfolder/OneSLAM/experiments/exp_05182025_16:05:47/trajectory.txt
