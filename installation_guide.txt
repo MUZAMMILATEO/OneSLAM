@@ -42,7 +42,7 @@ sudo apt-get install libsuitesparse-dev
 # - libcsparse
 # - headers in /usr/include/suitesparse/
 
-# Explicitly tell CMake where SuiteSparse is [Optional]
+# Explicitly tell CMake where SuiteSparse is [Optional, if needed]
 cmake .. -DCMAKE_BUILD_TYPE=Release \
   -DCSPARSE_INCLUDE_DIR=/usr/include/suitesparse \
   -DCSPARSE_LIBRARY=/usr/lib/x86_64-linux-gnu/libcxsparse.so
